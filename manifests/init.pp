@@ -166,6 +166,8 @@
 #
 # $dhcp_interface::             DHCP listen interface
 #
+# $dhcp_additional_interfaces:: An array of additional DHCP listen interfaces
+#
 # $dhcp_gateway::               DHCP pool gateway
 #
 # $dhcp_range::                 Space-separated DHCP pool range
@@ -323,6 +325,7 @@ class foreman_proxy (
   $dhcp_managed               = $foreman_proxy::params::dhcp_managed,
   $dhcp_option_domain         = $foreman_proxy::params::dhcp_option_domain,
   $dhcp_interface             = $foreman_proxy::params::dhcp_interface,
+  $dhcp_additional_interfaces = $foreman_proxy::params::dhcp_additional_interfaces,
   $dhcp_gateway               = $foreman_proxy::params::dhcp_gateway,
   $dhcp_range                 = $foreman_proxy::params::dhcp_range,
   $dhcp_nameservers           = $foreman_proxy::params::dhcp_nameservers,

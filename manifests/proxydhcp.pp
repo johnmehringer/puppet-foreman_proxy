@@ -4,6 +4,7 @@ class foreman_proxy::proxydhcp {
   # so for alias and vlan interfaces we have to modify the name accordingly
   $interface_fact_name = regsubst($foreman_proxy::dhcp_interface, '[.:]', '_')
   $ip   = inline_template("<%= scope.lookupvar('::ipaddress_${interface_fact_name}') %>")
+  $interfaces_array = concat([$foreman_proxy::dhcp_interface], $foreman_proxy::dhcp_additional_interfaces)
   if ! is_ip_address($ip) {
     fail("Could not get the ip address from fact ipaddress_${interface_fact_name}")
   }
@@ -27,7 +28,7 @@ class foreman_proxy::proxydhcp {
   class { '::dhcp':
     dnsdomain   => $foreman_proxy::dhcp_option_domain,
     nameservers => $nameservers,
-    interfaces  => [$foreman_proxy::dhcp_interface],
+    interfaces  => $interfaces_array,
     pxeserver   => $ip,
     pxefilename => 'pxelinux.0',
     omapi_name  => $foreman_proxy::dhcp_key_name,
